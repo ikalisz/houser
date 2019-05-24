@@ -21,9 +21,18 @@ export default class Dashboard extends Component {
             console.log(err)
         })
     }
+    updateHouses = () => {
+        axios.get('/api/houses')
+        .then(houses => {
+            this.setState({houses: houses.data})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
     render() {
         const houseDisplay = this.state.houses.map(house => {
-           return <House key={house.id} propertyName={house.name} address={house.address} city={house.city} propertyState={house.state} zip={house.zip} imageURL={house.img} mortgageAmt={house.mortgage} monthlyRent={house.rent} />
+           return <House key={house.id} propertyName={house.name} address={house.address} city={house.city} propertyState={house.state} zip={house.zip} imageURL={house.img} mortgageAmt={house.mortgage} monthlyRent={house.rent} updateHouses={this.updateHouses} id={house.id} />
         })
         return (
             <section className='dashboardBody'>

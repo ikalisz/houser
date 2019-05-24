@@ -11,5 +11,11 @@ module.exports = {
         const db = req.app.get('db')
         await db.create_house([propertyName, address, city, stateProperty, zip, imageURL, mortgageAmt, monthlyRent])
         res.status(201).send(`Created!`)
+    },
+    delete_house: async (req, res) => {
+        const {id} = req.params
+        const db = req.app.get('db')
+        await db.delete_house(id)
+        res.status(200).send(`Deleted!`)
     }
 }
