@@ -1,0 +1,25 @@
+.inputMain {
+    height: 70%;
+    width: 70%;
+    background: red;
+}
+
+.wizardHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 100px;
+    align-items: center;
+}
+
+.stepButtonNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+    width: 80%;
+}
+
+.inputHolderStep1 {
+    display: flex;
+}
