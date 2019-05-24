@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import store, {MORTGAGE_UPDATE, RENT_UPDATE, RESET_STATE} from '../../../ducks/store'
+import axios from 'axios';
 
 
 export default class Step3 extends Component {
@@ -9,7 +10,8 @@ export default class Step3 extends Component {
         const reduxState = store.getState()
         this.state = {
             mortgageAmt: reduxState.mortgageAmt,
-            monthlyRent: reduxState.monthlyRent
+            monthlyRent: reduxState.monthlyRent,
+            submitted: false,
         }
     }
     componentDidMount() {
@@ -29,6 +31,10 @@ export default class Step3 extends Component {
     resetRedux = () => {
         store.dispatch({type: RESET_STATE})
     }
+    async bossSubmit() {
+        
+    }
+    
     render() {
         return (
             <section className="dashboardBody">
@@ -52,7 +58,7 @@ export default class Step3 extends Component {
                     </main>
                     <nav className="stepButtonNav">
                         <Link to='/wizard/step2' ><button>Previous</button></Link>
-                        <Link to='/'><button onClick={this.resetRedux}>Submit</button></Link>
+                        <button onClick={this.resetRedux}>Submit</button>
                     </nav>
                 </section> 
             </section>
