@@ -13,6 +13,7 @@ export default class Step3 extends Component {
             monthlyRent: reduxState.monthlyRent,
             submitted: false,
         }
+        this.bossSubmit = this.bossSubmit.bind(this)
     }
     componentDidMount() {
         store.subscribe(() => {
@@ -28,16 +29,29 @@ export default class Step3 extends Component {
     updateMonthlyRent = (monthlyRent) => {
         store.dispatch({type: RENT_UPDATE, monthlyRent})
     }
-    resetRedux = () => {
-        store.dispatch({type: RESET_STATE})
-    }
     async bossSubmit() {
-        
+        const {propertyName, address, city, stateProperty, zip, imageURL, mortgageAmt, monthlyRent} = store.getState()
+        console.log(stateProperty)
+        await axios.post('/api/house', {
+            propertyName,
+            address,
+            city,
+            stateProperty,
+            zip,
+            imageURL,
+            mortgageAmt,
+            monthlyRent
+        })
+        store.dispatch({type: RESET_STATE})
+        this.setState({submitted: true})
     }
     
     render() {
         return (
             <section className="dashboardBody">
+                {this.state.submitted ? 
+                    <Redirect to='/' />
+                    :
                 <section className='container'>
                     <header className="wizardHeader">
                         <h1>Add New Listing</h1>
@@ -45,7 +59,7 @@ export default class Step3 extends Component {
                     </header>
                     <main className="inputMain">
                         <section>
-                            <h2>Recommended Rent: $0</h2>
+                            <h2>Recommended Rent: ${this.state.mortgageAmt * 1.25}</h2>
                         </section>
                         <section>
                             <h2>Monthly Mortgage Amount</h2>
@@ -58,9 +72,10 @@ export default class Step3 extends Component {
                     </main>
                     <nav className="stepButtonNav">
                         <Link to='/wizard/step2' ><button>Previous</button></Link>
-                        <button onClick={this.resetRedux}>Submit</button>
+                        <button onClick={this.bossSubmit}>Submit</button>
                     </nav>
                 </section> 
+                }
             </section>
         )
     }

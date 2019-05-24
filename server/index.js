@@ -12,6 +12,7 @@ massive(CONNECTION_STRING)
 })
 
 app.get('/api/houses', house_ctrl.get_houses)
+app.post('/api/house', house_ctrl.create_house)
 
 app.listen(SERVER_PORT, () => {
     console.log(`working on port ${SERVER_PORT}`)
